@@ -1,0 +1,83 @@
+:root {
+  --color: #f44336bd;
+}
+
+body {
+	font-family: "Cuprum", "Arial", sans-serif;
+	font-size: 14px;
+	line-height: 21px;
+	color: #000000;
+	text-align: center;
+	background-color: var(--color);
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+.quote-box {
+	width: 500px;
+	background-color: #ffffff;
+	padding: 20px;
+	margin: 100px auto 5px;
+	border-radius: 5px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.quote-wrapper {
+	width: 100%;
+	padding: 20px; 
+}
+
+.quote-text {
+	font-size: 25px;
+	color: var(--color);
+}
+
+.quote-author {
+	font-size: 15px;
+	color: var(--color);
+	float: right;
+}
+
+.social {
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+	padding: 0;
+	margin: 0 auto 0 0; 
+}
+
+.social-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 0;
+	background-color: var(--color);
+	width: 27px;
+	height: 25px;
+	margin: 0 7px 0 0;
+	border-radius: 3px;
+}
+
+.quote-new_quote {
+	display: block;
+	background-color: var(--color);
+	background-repeat: no-repeat;
+	background-position: center;
+	color: #ffffff;
+	height: 25px;
+	padding: 5px;
+	margin: 0;
+	border-radius: 3px;
+	border: none;
+}
+
+.auth {
+	color: #ffffff;
+	font-size: 10px;
+	font-style: italic;
+}
