@@ -1,137 +1,102 @@
-GET http://quotes.rest/quote/random.json
+'use strict';
 
-var messageLink = document.querySelector(".message");
-var mapLink = document.querySelector(".map");
-var messageForm = document.querySelector(".modal-message");
-var mapForm = document.querySelector(".modal-map");
-var orderForm = document.querySelector(".modal-order");
-var closeOrderFormContinue = orderForm.querySelector(".continue");
-var orderLinksList = document.querySelectorAll(".item-buy");
-var orderLink;
-var closeButtonsList = document.querySelectorAll(".modal-button-close");
-var closeButtonLink;
-var close;
-var userName;
-var userEmail;
-var messageContent;
-var isStorageSupport = true;
-var storageuserName = "";
-var storageuserEmail = "";
-var storagemessageContent = "";
-var timerId;
+(function () {
+  var URL = 'https://api.develnext.org';
+  var serverTime = 10000;
+  var statusOk = 200;
 
-//проверка работы хранилища  
-try {
-	storageuserName = localStorage.getItem("userName");
-	storageuserEmail = localStorage.getItem("userEmail");
-	storagemessageContent = localStorage.getItem("messageContent");
-} catch (err) {
-	isStorageSupport = false;
-}
+  var buttonNewQuote = document.querySelector('.quote-new_quote');
 
-//форма отправки сообщения
-if (messageLink) {
-	userName = messageForm.querySelector("[id=name]");
-	userEmail = messageForm.querySelector("[id=email]");
-	messageContent = messageForm.querySelector("[id=content]");
-	
-	//открытие формы отправки сообщения по кнопке
-	messageLink.addEventListener("click", function (evt) {
-		evt.preventDefault();
-		messageForm.classList.add("modal-show");
-		userName.focus();
-	});
+  function onClickbuttonNewQuote() {
+  	load(function (data) {
+    	var offers = data;
+    	console.log(data);
+	},showError);
+  }
 
-	//проверка полей формы отправки сообщения
-	messageForm.addEventListener("submit", function (evt) {
-		if (!userName.value || !userEmail.value || messageContent.value == "")
-			{
-				evt.preventDefault();
-				console.log("Заполните ваше имя, обратный электронный адрес и текст письма");
-				messageForm.classList.remove("modal-error");
-				messageForm.offsetWidth = messageForm.offsetWidth;
-				messageForm.classList.add("modal-error");
-				if (!userName.value) {
-					userName.focus();
-				} else {
-					if (!userEmail.value) {
-						userEmail.focus();
-					} else {
-						if (messageContent.value == "") {
-							messageContent.focus();
-						}
-					}
-				}
-		} else {
-			if (isStorageSupport) {
-				localStorage.setItem("userName", userName.value);
-				localStorage.setItem("userEmail", userEmail.value);
-			}
-		}
-	});
-}
+  buttonNewQuote.addEventListener('click', onClickbuttonNewQuote);
 
-//карта
-if (mapLink) {
-	mapLink.addEventListener("click", function (evt) {
-		evt.preventDefault();
-		mapForm.classList.add("modal-show");
-	});
-}
+  
+  // загрузка данных с сервера
+  function load(onLoad, onError) {
+  	/*
+  	var xhr = new XMLHttpRequest();
+    xhr.responseType = 'json';
 
-//окно покупки
-for (var i = 0; i < orderLinksList.length; i++) {
-	orderLink = orderLinksList[i];
-	orderLink.addEventListener("click", function (evt) {
-		evt.preventDefault();
-		orderForm.classList.add("modal-show");
-		//закрытие окна покупки через 5 секунд
-		clearTimeout(timerId);
-		timerId = setTimeout(function() {
-			orderForm.classList.remove("modal-show");
-		}, 5000);
-	});
-}
+    xhr.addEventListener('load', function () {
+      if (xhr.status === statusOk) {
+        onLoad(xhr.response);
+      } else {
+        onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+      }
+    });
 
-//закрытие модальных окон по кнопке закрытия
-for (var i = 0; i < closeButtonsList.length; i++) {
-	closeButtonLink = closeButtonsList[i];
-	closeButtonLink.addEventListener("click", function (evt) {
-		close = evt.target;
-		if (close.parentNode.classList.contains("modal-show")) {
-				close.parentNode.classList.remove("modal-show");
-		}
-		if (close.parentNode.classList.contains("modal-error")) {
-				close.parentNode.classList.remove("modal-error");
-		}
-	});
-}
+    xhr.addEventListener('error', function () {
+      onError('Произошла ошибка соединения');
+    });
 
-//закрытие окна покупки по ссылке "Продолжить покупки"
-closeOrderFormContinue.addEventListener("click", function (evt) {
-	evt.preventDefault();
-	orderForm.classList.remove("modal-show");
-});
+    xhr.addEventListener('timeout', function () {
+      onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+    });
 
-//закрытие модальных окон по esc
-window.addEventListener("keydown", function (evt) {
-	if (evt.keyCode === 27) {
-		evt.preventDefault();
-		if (messageForm) {
-			if (messageForm.classList.contains("modal-show")) {
-				messageForm.classList.remove("modal-show");
-				messageForm.classList.remove("modal-error");
-			}
-		}
-		if (mapForm) {
-			if (mapForm.classList.contains("modal-show")) {
-				mapForm.classList.remove("modal-show");
-			}
-		}
-		if (orderForm) {
-			if (orderForm.classList.contains("modal-show")) {
-				orderForm.classList.remove("modal-show");
-			}
-		}	
+    xhr.timeout = serverTime;
+    
+    //xhr.open('GET', URL + '/data/v1/quote/subjects');
+    xhr.open('GET', 'https://andruxnet-random-famous-quotes.p.rapidapi.com/?cat=famous&count=10');
+    xhr.setRequestHeader("x-rapidapi-host", "andruxnet-random-famous-quotes.p.rapidapi.com");
+xhr.setRequestHeader("x-rapidapi-key", "821d69d5f2msh9395eb47e2363bcp13ca19jsne2c94e8e0b4a");
+    
+    xhr.send();*/
+  var data = null;
+
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function () {
+	if (this.readyState === this.DONE) {
+		console.log(this.responseText);
 	}
 });
+
+xhr.open("GET", "https://api.paperquotes.com/apiv1/quotes/?tags=love,life&curated=1");
+xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+//xhr.setRequestHeader("x-rapidapi-host", "kutip.p.rapidapi.com");
+//xhr.setRequestHeader("RapidAPI Project", "kutip.p.rapidapi.com");
+//xhr.setRequestHeader("x-rapidapi-key", "821d69d5f2msh9395eb47e2363bcp13ca19jsne2c94e8e0b4a");
+
+xhr.send(data);
+  }
+
+  // показ ошибки
+  function showError(error) {
+    var errorModal = document.createElement('div');
+    errorModal.style = 'position: absolute; height: auto; width: 500px; left: 50%; top: 50%; padding: 20px; background: #fff; border: 1px solid #333; z-index: 9999; transform: translate(-50%, -50%)';
+    errorModal.classList.add('error');
+    var errorMessage = document.createElement('h1');
+    errorMessage.style = 'color: red; text-shadow: none; font-size: 30px';
+    errorMessage.textContent = error;
+    errorModal.appendChild(errorMessage);
+    document.body.appendChild(errorModal);
+  }
+
+  // ошибка :(
+  /*function showError() {
+    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
+    var errorMessage = errorTemplate.cloneNode(true);
+    var errorText = errorMessage.querySelector('.error__message');
+    var errorCloseButton = errorMessage.querySelector('.error__button');
+
+    errorText.textContent = 'Произошла ошибка';
+    mainContainer.appendChild(errorMessage);
+
+    errorCloseButton.addEventListener('click', function () {
+      mainContainer.removeChild(errorMessage);
+    });
+
+    errorMessage.addEventListener('click', function () {
+      mainContainer.removeChild(errorMessage);
+    });
+  }*/
+  
+})();
+
