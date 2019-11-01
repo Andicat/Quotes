@@ -21,9 +21,9 @@
     },showError);
   }
 
-  /*function onClickSocialTwitter(evt) {
-    evt.href = 'http://twitter.com/timeline/home?status=' + quoteText.textContent;
-  }*/
+  function onClickSocialTwitter(evt) {
+    //evt.href = 'http://twitter.com/timeline/home?status=' + quoteText.textContent;
+  }
 
   function showQuote(data) {
   	var quoteData = JSON.parse(data);
