@@ -1,11 +1,9 @@
 :root {
-  --color: #f44336bd;
+  --color: white;
 }
 
 body {
-	font-family: "Cuprum", "Arial", sans-serif;
-	font-size: 14px;
-	line-height: 21px;
+	font-family: "Arial", sans-serif;
 	color: #000000;
 	text-align: center;
 	background-color: var(--color);
@@ -32,7 +30,10 @@ a {
 }
 
 .quote-text {
-	font-size: 25px;
+	font-size: 30px;
+	line-height: 40px;
+	font-style: italic;
+	font-weight: bold;
 	color: var(--color);
 }
 
@@ -76,8 +77,20 @@ a {
 	border: none;
 }
 
+.social-button:focus,
+.social-button:hover,
+.quote-new_quote:focus,
+.quote-new_quote:hover {
+	outline: none;
+	opacity: 0.7;
+}
+
 .auth {
 	color: #ffffff;
 	font-size: 10px;
 	font-style: italic;
+}
+
+.hidden {
+	display: none;
 }

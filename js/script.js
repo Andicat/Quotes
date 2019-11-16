@@ -1,27 +1,47 @@
 'use strict';
 
 (function () {
-  var URL = 'https://api.develnext.org';
   var serverTime = 10000;
   var statusOk = 200;
 
-  var buttonNewQuote = document.querySelector('.quote-new_quote');
-
-  function onClickbuttonNewQuote() {
-  	load(function (data) {
-    	var offers = data;
-    	console.log(data);
-	},showError);
-  }
+  var html = document.getElementsByTagName('html')[0];
+  var quoteBox = document.querySelector('.quote-box');
+  var buttonNewQuote = quoteBox.querySelector('.quote-new_quote');
+  var quoteText = quoteBox.querySelector('.quote-text');
+  var quoteAuthor = quoteBox.querySelector('.quote-author');
+  var socialTwitter = quoteBox.querySelector('.social-twitter');
 
   buttonNewQuote.addEventListener('click', onClickbuttonNewQuote);
+  socialTwitter.addEventListener('click', onClickSocialTwitter);
 
-  
+  function onClickbuttonNewQuote() {
+    load(function (data) {
+      showQuote(data);
+      setRandomColor();
+    },showError);
+  }
+
+  function onClickSocialTwitter(evt) {
+    //evt.href = 'http://twitter.com/timeline/home?status=' + quoteText.textContent;
+  }
+
+  function showQuote(data) {
+  	var quoteData = JSON.parse(data);
+  	quoteText.textContent = quoteData[0].quote;
+  	quoteAuthor.textContent = quoteData[0].author;
+  	quoteBox.classList.remove('hidden');
+  }
+
+  function setRandomColor() {
+  	html.style.setProperty('--color', 'hsl(' + 360 * Math.random() + ', 50%, 70%)');
+  }
+
   // загрузка данных с сервера
   function load(onLoad, onError) {
-  	/*
-  	var xhr = new XMLHttpRequest();
-    xhr.responseType = 'json';
+    var data = null;
+
+    var xhr = new XMLHttpRequest();
+    xhr.withCredentials = true;
 
     xhr.addEventListener('load', function () {
       if (xhr.status === statusOk) {
@@ -40,35 +60,11 @@
     });
 
     xhr.timeout = serverTime;
-    
-    //xhr.open('GET', URL + '/data/v1/quote/subjects');
-    xhr.open('GET', 'https://andruxnet-random-famous-quotes.p.rapidapi.com/?cat=famous&count=10');
-    xhr.setRequestHeader("x-rapidapi-host", "andruxnet-random-famous-quotes.p.rapidapi.com");
-xhr.setRequestHeader("x-rapidapi-key", "821d69d5f2msh9395eb47e2363bcp13ca19jsne2c94e8e0b4a");
-    
-    xhr.send();*/
-  var data = null;
 
-var xhr = new XMLHttpRequest();
-xhr.withCredentials = true;
+    xhr.open('GET', 'https://andruxnet-random-famous-quotes.p.mashape.com/');
+    xhr.setRequestHeader('X-Mashape-Key', 'eLDaLcXAYOmshU8uqTBkhkrT9Nmcp1ACCmSjsnmbo1Va9oqckY');
 
-xhr.addEventListener("readystatechange", function () {
-	if (this.readyState === this.DONE) {
-		console.log(this.responseText);
-	}
-});
-
-//xhr.open("GET", "http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=xml&lang=en");
-
-   xhr.open('GET', 'https://js.dump.academy/keksobooking/data');
-//xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-//xhr.setRequestHeader("x-rapidapi-host", "kutip.p.rapidapi.com");
-//xhr.setRequestHeader("RapidAPI Project", "kutip.p.rapidapi.com");
-//xhr.setRequestHeader("x-rapidapi-key", "821d69d5f2msh9395eb47e2363bcp13ca19jsne2c94e8e0b4a");
-
-
-
-xhr.send(data);
+    xhr.send(data);
   }
 
   // показ ошибки
@@ -83,24 +79,11 @@ xhr.send(data);
     document.body.appendChild(errorModal);
   }
 
-  // ошибка :(
-  /*function showError() {
-    var errorTemplate = document.querySelector('#error').content.querySelector('.error');
-    var errorMessage = errorTemplate.cloneNode(true);
-    var errorText = errorMessage.querySelector('.error__message');
-    var errorCloseButton = errorMessage.querySelector('.error__button');
+  //начальная загрузка
+  load(function (data) {
+    showQuote(data);
+    setRandomColor();
 
-    errorText.textContent = 'Произошла ошибка';
-    mainContainer.appendChild(errorMessage);
+  },showError);
 
-    errorCloseButton.addEventListener('click', function () {
-      mainContainer.removeChild(errorMessage);
-    });
-
-    errorMessage.addEventListener('click', function () {
-      mainContainer.removeChild(errorMessage);
-    });
-  }*/
-  
 })();
-
