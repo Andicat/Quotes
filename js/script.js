@@ -10,9 +10,13 @@
   var quoteText = quoteBox.querySelector('.quote-text');
   var quoteAuthor = quoteBox.querySelector('.quote-author');
   var socialTwitter = quoteBox.querySelector('.social-twitter');
+  var socialVk = quoteBox.querySelector('.social-vk');
+  var socialFb = quoteBox.querySelector('.social-fb');
 
   buttonNewQuote.addEventListener('click', onClickbuttonNewQuote);
   socialTwitter.addEventListener('click', onClickSocialTwitter);
+  socialVk.addEventListener('click', onClickSocialVk);
+  socialFb.addEventListener('click', onClickSocialFb);
 
   function onClickbuttonNewQuote() {
     load(function (data) {
@@ -22,7 +26,16 @@
   }
 
   function onClickSocialTwitter(evt) {
-    //evt.href = 'http://twitter.com/timeline/home?status=' + quoteText.textContent;
+    this.href = 'http://twitter.com/share?text=' + quoteText.textContent;
+    //document.title+'&url='+window.location.href+window.location.hash+'&via=+ссылка на Twitter-аккаунт, например официальный канал сайта">
+  }
+
+  function onClickSocialVk(evt) {
+    this.href = 'https://vk.com/share.php?url=' + window.location.href + '&title=' + document.title;
+  }
+
+  function onClickSocialFb(evt) {
+    this.href = 'http://www.facebook.com/share.php?u=' + window.location.href;
   }
 
   function showQuote(data) {
