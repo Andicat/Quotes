@@ -38,14 +38,14 @@
   }
 
   function showQuote(data) {
-  	var quoteData = JSON.parse(data);
-  	quoteText.textContent = quoteData[0].quote;
-  	quoteAuthor.textContent = quoteData[0].author;
-  	quoteBox.classList.remove('hidden');
+    var quoteData = JSON.parse(data);
+    quoteText.textContent = quoteData[0].quote;
+    quoteAuthor.textContent = quoteData[0].author;
+    quoteBox.classList.remove('hidden');
   }
 
   function setRandomColor() {
-  	html.style.setProperty('--color', 'hsl(' + 360 * Math.random() + ', 50%, 70%)');
+    html.style.setProperty('--color', 'hsl(' + 360 * Math.random() + ', 50%, 70%)');
   }
 
   // загрузка данных с сервера
