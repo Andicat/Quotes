@@ -27,7 +27,6 @@
 
   function onClickSocialTwitter(evt) {
     this.href = 'http://twitter.com/share?url=' +  window.location.href + '&text=' + quoteText.textContent;
-    //document.title+'&url='+window.location.href+window.location.hash+'&via=+ссылка на Twitter-аккаунт, например официальный канал сайта">
   }
 
   function onClickSocialVk(evt) {
@@ -35,7 +34,7 @@
   }
 
   function onClickSocialFb(evt) {
-    this.href = 'http://www.facebook.com/share.php?url=' + window.location.href;
+    this.href = 'http://www.facebook.com/share.php?u=' + window.location.href;
   }
 
   function showQuote(data) {
