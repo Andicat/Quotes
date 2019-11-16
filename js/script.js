@@ -58,11 +58,15 @@ xhr.addEventListener("readystatechange", function () {
 	}
 });
 
-xhr.open("GET", "https://api.paperquotes.com/apiv1/quotes/?tags=love,life&curated=1");
-xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+//xhr.open("GET", "http://api.forismatic.com/api/1.0/?method=getQuote&key=457653&format=xml&lang=en");
+
+   xhr.open('GET', 'https://js.dump.academy/keksobooking/data');
+//xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
 //xhr.setRequestHeader("x-rapidapi-host", "kutip.p.rapidapi.com");
 //xhr.setRequestHeader("RapidAPI Project", "kutip.p.rapidapi.com");
 //xhr.setRequestHeader("x-rapidapi-key", "821d69d5f2msh9395eb47e2363bcp13ca19jsne2c94e8e0b4a");
+
+
 
 xhr.send(data);
   }
